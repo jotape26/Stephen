@@ -1,0 +1,46 @@
+PODS:
+  - Alamofire (5.4.3)
+  - Kingfisher (6.3.0)
+  - Moya/Core (14.0.0):
+    - Alamofire (~> 5.0)
+  - Moya/RxSwift (14.0.0):
+    - Moya/Core
+    - RxSwift (~> 5.0)
+  - RxCocoa (5.1.1):
+    - RxRelay (~> 5)
+    - RxSwift (~> 5)
+  - RxRelay (5.1.1):
+    - RxSwift (~> 5)
+  - RxSwift (5.1.2)
+  - SwiftMessages (9.0.3):
+    - SwiftMessages/App (= 9.0.3)
+  - SwiftMessages/App (9.0.3)
+
+DEPENDENCIES:
+  - Kingfisher
+  - Moya/RxSwift
+  - RxCocoa
+  - SwiftMessages
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - Kingfisher
+    - Moya
+    - RxCocoa
+    - RxRelay
+    - RxSwift
+    - SwiftMessages
+
+SPEC CHECKSUMS:
+  Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
+  Kingfisher: 6c3df386db71d82c0817a429d2c9421a77396529
+  Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
+  RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
+  RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
+  RxSwift: 1e2e1f9570186967f617e49128ed26ccf1bafc8e
+  SwiftMessages: 077f19126c24033fe24042237ecc20261adb46e4
+
+PODFILE CHECKSUM: 17bdfc6bc7c41ef3ca0ed5f9d38de4fcc1381d4a
+
+COCOAPODS: 1.10.1

@@ -55,6 +55,12 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>LouisGeorgeCafe-Italic.ttf</string>
+		<string>LouisGeorgeCafe-Bold.ttf</string>
+		<string>LouisGeorgeCafe-Regular.ttf</string>
+	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
