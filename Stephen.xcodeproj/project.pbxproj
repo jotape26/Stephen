@@ -37,6 +37,7 @@
 		7CBBD8D52692094200521CFC /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CBBD8D42692094200521CFC /* Colors.xcassets */; };
 		7CBBD8D8269218A000521CFC /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBBD8D7269218A000521CFC /* Session.swift */; };
 		7CBBD8DA2692216300521CFC /* FavoriteCocktailListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBBD8D92692216300521CFC /* FavoriteCocktailListViewModel.swift */; };
+		7CBBD8DD269486EA00521CFC /* FavoriteCocktailTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBBD8DC269486EA00521CFC /* FavoriteCocktailTests.swift */; };
 		7CCD9F31268BC01A00D216E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCD9F30268BC01A00D216E6 /* AppDelegate.swift */; };
 		7CCD9F33268BC01A00D216E6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCD9F32268BC01A00D216E6 /* SceneDelegate.swift */; };
 		7CCD9F35268BC01A00D216E6 /* DrinkListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCD9F34268BC01A00D216E6 /* DrinkListViewController.swift */; };
@@ -95,6 +96,7 @@
 		7CBBD8D42692094200521CFC /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		7CBBD8D7269218A000521CFC /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		7CBBD8D92692216300521CFC /* FavoriteCocktailListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCocktailListViewModel.swift; sourceTree = "<group>"; };
+		7CBBD8DC269486EA00521CFC /* FavoriteCocktailTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCocktailTests.swift; sourceTree = "<group>"; };
 		7CCD9F2D268BC01A00D216E6 /* Stephen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stephen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CCD9F30268BC01A00D216E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7CCD9F32268BC01A00D216E6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -309,6 +311,7 @@
 			isa = PBXGroup;
 			children = (
 				7CCD9F47268BC01B00D216E6 /* CocktailBusinessTests.swift */,
+				7CBBD8DC269486EA00521CFC /* FavoriteCocktailTests.swift */,
 			);
 			path = Business;
 			sourceTree = "<group>";
@@ -669,6 +672,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CCD9F48268BC01B00D216E6 /* CocktailBusinessTests.swift in Sources */,
+				7CBBD8DD269486EA00521CFC /* FavoriteCocktailTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
