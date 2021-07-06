@@ -4,8 +4,8 @@ Find your new favorite cocktail!
 
 ## Content
 
-- [Project Info](#Project_Info)
-- [How to build it?](#How_to_build_it)
+- [Project Info](#Project Info)
+- [How to build it?](#How to build it?)
 - [Content](#Content)
 
 ## Project Info
