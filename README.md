@@ -4,9 +4,9 @@ Find your new favorite cocktail!
 
 ## Content
 
-- [Project Info](#Project Info)
-- [How to build it?](#How to build it?)
-- [Conteúdo](#Conteúdo)
+- [Project Info](#ProjectInfo)
+- [How to build it?](#Howtobuildit?)
+- [Content](#Content)
 
 ## Project Info
 
@@ -17,7 +17,7 @@ Find your new favorite cocktail!
 - UserDefaults for simple data persistante.
 - Cocoapods for third-party libraries management.
 
-## CHow to build it?
+## How to build it?
 
 Clone this repo:
 
