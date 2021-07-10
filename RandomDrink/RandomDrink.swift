@@ -15,18 +15,18 @@ struct DefaultDrinks {
                                         name: "Margarita",
                                         thumbURL: nil)
 }
-struct Provider: IntentTimelineProvider {
+struct Provider: TimelineProvider {
     
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(cocktail: DefaultDrinks.Margarita, configuration: ConfigurationIntent())
+        SimpleEntry(cocktail: DefaultDrinks.Margarita)
     }
 
-    func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(cocktail: DefaultDrinks.Margarita, configuration: configuration)
+    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
+        let entry = SimpleEntry(cocktail: DefaultDrinks.Margarita)
         completion(entry)
     }
 
-    func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
+    func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         
         var entries: [SimpleEntry] = []
 
@@ -37,13 +37,13 @@ struct Provider: IntentTimelineProvider {
             
             if let randomElement = result.cocktails.randomElement() {
                 self.downloadImage(url: randomElement.thumbnailURL!) { newImage in
-                    entries.append(SimpleEntry(cocktail: randomElement.mapToLite(), image: newImage, configuration: configuration))
+                    entries.append(SimpleEntry(cocktail: randomElement.mapToLite(), image: newImage))
                     
                     imageRequestGroup.leave()
                 }
                 
             } else {
-                entries.append(SimpleEntry(cocktail: DefaultDrinks.Margarita, configuration: configuration))
+                entries.append(SimpleEntry(cocktail: DefaultDrinks.Margarita))
                 imageRequestGroup.leave()
             }
             
@@ -77,7 +77,6 @@ struct SimpleEntry: TimelineEntry {
     let cocktail: CocktailLite
     var image : UIImage?
     let date: Date = Date()
-    let configuration: ConfigurationIntent
 }
 
 struct RandomDrinkEntryView : View {
@@ -117,7 +116,7 @@ struct RandomDrink: Widget {
     let kind: String = "RandomDrink"
 
     var body: some WidgetConfiguration {
-        IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
+        StaticConfiguration(kind: kind, provider: Provider()) { entry in
             RandomDrinkEntryView(entry: entry)
         }
         .supportedFamilies([.systemSmall])
@@ -129,7 +128,7 @@ struct RandomDrink: Widget {
 struct RandomDrink_Previews: PreviewProvider {
     
     static var previews: some View {
-        RandomDrinkEntryView(entry: SimpleEntry(cocktail: DefaultDrinks.Margarita, configuration: ConfigurationIntent()))
+        RandomDrinkEntryView(entry: SimpleEntry(cocktail: DefaultDrinks.Margarita))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }
