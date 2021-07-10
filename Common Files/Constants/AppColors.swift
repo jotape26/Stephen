@@ -1,13 +1,14 @@
 //
-//  ColorMapper.swift
+//  AppColors.swift
 //  Stephen
 //
-//  Created by João Leite on 30/06/21.
+//  Created by João Leite on 09/07/21.
 //
 
 import UIKit
+import SwiftUI
 
-struct Color {
+struct ColorMapping {
     
     enum Scale {
         case Standard, AppleScale
@@ -40,26 +41,15 @@ struct Color {
         }
     }
     
+    var swiftUiColor : Color {
+        return (Color(uiColor))
+    }
+    
 }
 
 struct AppColors {
-    static var WineRed = Color(r: 67, g: 0, b: 0, s: .Standard)
+    static var WineRed = ColorMapping(r: 67, g: 0, b: 0, s: .Standard)
     
     static var TextColor = UIColor(named: "TextColor")!
     static var BackgroundColor = UIColor(named: "BackgroundColor")!
-}
-
-enum AppFont {
-    case Regular(Int), Bold(Int), Italic(Int)
-    
-    var uiFont : UIFont {
-        get {
-            switch self {
-            
-            case .Regular(let size): return UIFont(name: "LouisGeorgeCafe", size: CGFloat(size))!
-            case .Bold(let size): return UIFont(name: "LouisGeorgeCafe-Bold", size: CGFloat(size))!
-            case .Italic(let size): return UIFont(name: "LouisGeorgeCafe-Italic", size: CGFloat(size))!
-            }
-        }
-    }
 }
