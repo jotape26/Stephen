@@ -46,8 +46,6 @@
 		7CBBD90F26990D6400521CFC /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA1F350268BC73D00509A3A /* Ingredient.swift */; };
 		7CBBD91026990D6A00521CFC /* Cocktail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5C55792690B0C600BAA909 /* Cocktail.swift */; };
 		7CBBD91126990D7000521CFC /* CocktailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA1F34A268BC0BB00509A3A /* CocktailService.swift */; };
-		7CBBD91326990D8D00521CFC /* CocktailLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBBD91226990D8D00521CFC /* CocktailLite.swift */; };
-		7CBBD91426990D8D00521CFC /* CocktailLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBBD91226990D8D00521CFC /* CocktailLite.swift */; };
 		7CBBD9172699261500521CFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CCD9F39268BC01B00D216E6 /* Assets.xcassets */; };
 		7CBBD91B2699278900521CFC /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBBD91A2699278900521CFC /* AppColors.swift */; };
 		7CBBD91D269927CC00521CFC /* AppFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBBD91C269927CC00521CFC /* AppFont.swift */; };
@@ -140,7 +138,6 @@
 		7CBBD90026990CFB00521CFC /* RandomDrink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomDrink.swift; sourceTree = "<group>"; };
 		7CBBD90326990CFD00521CFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7CBBD90526990CFD00521CFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7CBBD91226990D8D00521CFC /* CocktailLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailLite.swift; sourceTree = "<group>"; };
 		7CBBD91A2699278900521CFC /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
 		7CBBD91C269927CC00521CFC /* AppFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFont.swift; sourceTree = "<group>"; };
 		7CCD9F2D268BC01A00D216E6 /* Stephen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stephen.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -244,13 +241,19 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		7C5C557B2690C67600BAA909 /* Resoures */ = {
+		7C5C557B2690C67600BAA909 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7CCD9F36268BC01A00D216E6 /* Main.storyboard */,
+				7CA1F364268CD60600509A3A /* MainAppSplitViewController.swift */,
+				7CCD9F30268BC01A00D216E6 /* AppDelegate.swift */,
+				7CCD9F32268BC01A00D216E6 /* SceneDelegate.swift */,
+				7CCD9F3E268BC01B00D216E6 /* Info.plist */,
+				7CCD9F3B268BC01B00D216E6 /* LaunchScreen.storyboard */,
 				7C5C557D2690C68600BAA909 /* Fonts */,
 				7C5C557C2690C67C00BAA909 /* Assets */,
 			);
-			path = Resoures;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		7C5C557C2690C67C00BAA909 /* Assets */ = {
@@ -269,20 +272,6 @@
 				7CBBD8D12692077200521CFC /* LouisGeorgeCafe-Italic.ttf */,
 			);
 			path = Fonts;
-			sourceTree = "<group>";
-		};
-		7CA1F348268BC08900509A3A /* App */ = {
-			isa = PBXGroup;
-			children = (
-				7C5C557B2690C67600BAA909 /* Resoures */,
-				7CCD9F36268BC01A00D216E6 /* Main.storyboard */,
-				7CA1F364268CD60600509A3A /* MainAppSplitViewController.swift */,
-				7CCD9F30268BC01A00D216E6 /* AppDelegate.swift */,
-				7CCD9F32268BC01A00D216E6 /* SceneDelegate.swift */,
-				7CCD9F3E268BC01B00D216E6 /* Info.plist */,
-				7CCD9F3B268BC01B00D216E6 /* LaunchScreen.storyboard */,
-			);
-			path = App;
 			sourceTree = "<group>";
 		};
 		7CA1F349268BC0AB00509A3A /* Service */ = {
@@ -306,7 +295,6 @@
 			children = (
 				7CA1F350268BC73D00509A3A /* Ingredient.swift */,
 				7C5C55792690B0C600BAA909 /* Cocktail.swift */,
-				7CBBD91226990D8D00521CFC /* CocktailLite.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -412,14 +400,20 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		7CBBD96E269A42BC00521CFC /* Widgets */ = {
+			isa = PBXGroup;
+			children = (
+				7CBBD8FF26990CFB00521CFC /* RandomDrink */,
+			);
+			path = Widgets;
+			sourceTree = "<group>";
+		};
 		7CCD9F24268BC01A00D216E6 = {
 			isa = PBXGroup;
 			children = (
 				7CBBD9182699274F00521CFC /* Common Files */,
 				7CCD9F2F268BC01A00D216E6 /* Stephen */,
-				7CCD9F46268BC01B00D216E6 /* StephenTests */,
-				7CCD9F51268BC01B00D216E6 /* StephenUITests */,
-				7CBBD8FF26990CFB00521CFC /* RandomDrink */,
+				7CBBD96E269A42BC00521CFC /* Widgets */,
 				7CCD9F2E268BC01A00D216E6 /* Products */,
 				F648A58DA8E00173F789BB8D /* Pods */,
 				8A5320313ED8D3E1C242FA1A /* Frameworks */,
@@ -440,13 +434,15 @@
 		7CCD9F2F268BC01A00D216E6 /* Stephen */ = {
 			isa = PBXGroup;
 			children = (
+				7CCD9F46268BC01B00D216E6 /* StephenTests */,
+				7CCD9F51268BC01B00D216E6 /* StephenUITests */,
 				7CBBD8D62692188A00521CFC /* Session */,
 				7C5C55722690AFF500BAA909 /* Cocktail Collection */,
 				7C5C55752690B07700BAA909 /* Cocktail Details */,
 				7CA1F371268E4CCF00509A3A /* Extensions */,
 				7CA1F366268CF03500509A3A /* Custom Views */,
 				7CA1F355268CC5F100509A3A /* Custom Objects */,
-				7CA1F348268BC08900509A3A /* App */,
+				7C5C557B2690C67600BAA909 /* Resources */,
 			);
 			path = Stephen;
 			sourceTree = "<group>";
@@ -797,7 +793,6 @@
 				7CBBD90F26990D6400521CFC /* Ingredient.swift in Sources */,
 				7CBBD9202699292600521CFC /* AppFont.swift in Sources */,
 				7CBBD90E26990D5600521CFC /* CocktailBusiness.swift in Sources */,
-				7CBBD91426990D8D00521CFC /* CocktailLite.swift in Sources */,
 				7CBBD91026990D6A00521CFC /* Cocktail.swift in Sources */,
 				7CBBD91F2699291A00521CFC /* AppColors.swift in Sources */,
 				7CBBD90126990CFB00521CFC /* RandomDrink.swift in Sources */,
@@ -826,7 +821,6 @@
 				7CA1F368268CF04400509A3A /* LoadingView.swift in Sources */,
 				7CBBD8DA2692216300521CFC /* FavoriteCocktailListViewModel.swift in Sources */,
 				7CBBD91B2699278900521CFC /* AppColors.swift in Sources */,
-				7CBBD91326990D8D00521CFC /* CocktailLite.swift in Sources */,
 				7CA1F357268CC60200509A3A /* SquareFlowLayout.swift in Sources */,
 				7CA1F36A268CF06500509A3A /* LoadingCell.swift in Sources */,
 				7CA1F34E268BC40200509A3A /* CocktailBusiness.swift in Sources */,
@@ -905,7 +899,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = EMX5WZVKLF;
-				INFOPLIST_FILE = RandomDrink/Info.plist;
+				INFOPLIST_FILE = Widgets/RandomDrink/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -927,7 +921,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = EMX5WZVKLF;
-				INFOPLIST_FILE = RandomDrink/Info.plist;
+				INFOPLIST_FILE = Widgets/RandomDrink/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1066,7 +1060,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = EMX5WZVKLF;
-				INFOPLIST_FILE = Stephen/App/Info.plist;
+				INFOPLIST_FILE = Stephen/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1087,7 +1081,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = EMX5WZVKLF;
-				INFOPLIST_FILE = Stephen/App/Info.plist;
+				INFOPLIST_FILE = Stephen/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

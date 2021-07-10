@@ -31,7 +31,8 @@ class DrinkDetailViewController: BaseViewController {
         cocktailNameLabel.translatesAutoresizingMaskIntoConstraints = false
         cocktailNameLabel.textColor = .white
         cocktailNameLabel.numberOfLines = 0
-        cocktailNameLabel.font = AppFont.Bold(35).uiFont
+        
+        AppFonts(family: .Bold, uiFontStyle: .callout).configure(cocktailNameLabel)
         
         return cocktailNameLabel
     }()
@@ -117,7 +118,6 @@ class DrinkDetailViewController: BaseViewController {
     private lazy var favoriteImageView : UIImageView = {
         let imageView = UIImageView(image: UIImage(systemName: favorite.isFavoriteCocktail(id: viewModel.cocktail.id) ? "star.fill" : "star")!)
         imageView.contentMode = .scaleAspectFill
-        imageView.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(favoriteButtonPress)))
         imageView.tintColor = .white
         
@@ -141,7 +141,7 @@ class DrinkDetailViewController: BaseViewController {
         
         let backImageView = UIImageView(image: UIImage(systemName: "arrow.backward.circle.fill"))
         backImageView.contentMode = .scaleAspectFill
-        backImageView.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        backImageView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         backImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(exitButtonPress)))
         backImageView.tintColor = .white
         let backItem = UIBarButtonItem(customView: backImageView)
@@ -150,6 +150,7 @@ class DrinkDetailViewController: BaseViewController {
         navigationItem.hidesBackButton = true
         navigationItem.leftBarButtonItem = backItem
         
+        favoriteImageView.frame = backImageView.frame
         let favoriteButton = UIBarButtonItem(customView: favoriteImageView)
         navigationItem.rightBarButtonItem = favoriteButton
         
@@ -253,9 +254,13 @@ extension DrinkDetailViewController: UITableViewDelegate, UITableViewDataSource 
         if indexPath.row == 0 {
             let cell = UITableViewCell(style: .default, reuseIdentifier: "defaultCell")
             cell.backgroundColor = .clear
-            cell.textLabel?.font = AppFont.Bold(35).uiFont
-            cell.textLabel?.text = indexPath.section == 0 ? "What you'll need:" : "What to do:"
-            cell.textLabel?.textColor = AppColors.TextColor
+            
+            if let textLabel = cell.textLabel {
+                AppFonts(family: .Bold, uiFontStyle: .title1).configure(textLabel)
+                textLabel.text = indexPath.section == 0 ? "What you'll need:" : "What to do:"
+                textLabel.textColor = AppColors.TextColor
+            }
+            
             return cell
         }
                 
@@ -267,13 +272,17 @@ extension DrinkDetailViewController: UITableViewDelegate, UITableViewDataSource 
             cell.backgroundColor = .clear
             cell.accessoryView = nil
             
-            cell.textLabel?.text = ingredient.name
-            cell.textLabel?.font = AppFont.Bold(25).uiFont
-            cell.textLabel?.textColor = AppColors.TextColor
+            if let textLabel = cell.textLabel {
+                textLabel.text = ingredient.name
+                textLabel.textColor = .white
+                AppFonts(family: .Bold, uiFontStyle: .callout).configure(textLabel)
+            }
             
-            cell.detailTextLabel?.text = ingredient.quantity
-            cell.detailTextLabel?.font = AppFont.Regular(20).uiFont
-            cell.detailTextLabel?.textColor = AppColors.TextColor
+            if let textLabel = cell.detailTextLabel {
+                textLabel.text = ingredient.quantity
+                textLabel.textColor = .white
+                AppFonts(family: .Regular, uiFontStyle: .body).configure(textLabel)
+            }
             
             return cell
             

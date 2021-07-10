@@ -14,7 +14,7 @@ class CocktailTagCell : UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = AppColors.WineRed.uiColor
         label.textAlignment = .center
-        label.font = AppFont.Bold(23).uiFont
+        AppFonts(family: .Bold, uiFontStyle: .body).configure(label)
         return label
     }()
     

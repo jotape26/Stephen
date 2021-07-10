@@ -31,9 +31,9 @@ class FavoriteCocktailsCell : UICollectionViewCell {
         noFavoriteTextLabel.translatesAutoresizingMaskIntoConstraints = false
         noFavoriteTextLabel.textColor = AppColors.TextColor
         noFavoriteTextLabel.numberOfLines = 0
-        noFavoriteTextLabel.font = AppFont.Regular(23).uiFont
         noFavoriteTextLabel.text = "You haven't favorited any cocktails.\nLet's find you a new signature drink?"
         noFavoriteTextLabel.textAlignment = .center
+        AppFonts(family: .Regular, uiFontStyle: .headline).configure(noFavoriteTextLabel)
         
         let starImage = UIImageView(image: UIImage(systemName: "star.circle"))
         starImage.widthAnchor.constraint(equalTo: starImage.heightAnchor).isActive = true

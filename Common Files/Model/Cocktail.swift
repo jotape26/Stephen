@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol Cocktail {
+protocol Cocktail: Codable {
     var id           : String { get }
     var name         : String { get }
     var thumbnailURL : URL? { get }
@@ -18,10 +18,6 @@ protocol Cocktail {
     
     var cocktailNeedsDetails : Bool { get }
     func registerDetails(data: [String : Any])
-    
-    func mapToLite() -> CocktailLite
-    
-    static func mapFromLite(_ lite: CocktailLite) -> Cocktail
 }
 
 struct DrinkIngredientInfo {
@@ -45,18 +41,31 @@ class CocktailModel : Cocktail {
         }
     }
     
-    private init(id: String, name: String, thumbURL: URL?) {
+    init(id: String, name: String, thumbURL: URL?) {
         self.id = id
         self.name = name
         self.thumbnailURL = thumbURL
     }
     
-    func mapToLite() -> CocktailLite {
-        return CocktailLite(id: id, name: name, thumbURL: thumbnailURL)
+    enum CodingKeys: String, CodingKey {
+        case id, name, thumbnailURL
     }
     
-    static func mapFromLite(_ lite: CocktailLite) -> Cocktail {
-        return CocktailModel(id: lite.id, name: lite.name, thumbURL: lite.thumbnailURL)
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.name = try container.decode(String.self, forKey: .name)
+        self.id = try container.decode(String.self, forKey: .id)
+        self.thumbnailURL = try container.decodeIfPresent(URL.self, forKey: .thumbnailURL)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(self.name, forKey: .name)
+        try container.encode(self.id, forKey: .id)
+        try container.encodeIfPresent(self.thumbnailURL, forKey: .thumbnailURL)
+        
     }
     
     static func createFromJSON(JSON data: [String : Any]) -> CocktailModel? {

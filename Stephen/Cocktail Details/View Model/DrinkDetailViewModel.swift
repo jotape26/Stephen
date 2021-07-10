@@ -74,7 +74,7 @@ class DrinkDetailViewModel : NSObject, DrinkDetailViewModelProtocol {
     func getTagItemSize(index: Int) -> CGSize {
         let item = tagsSubject.value[index]
         let itemSize = item.size(withAttributes: [
-            NSAttributedString.Key.font : AppFont.Bold(17).uiFont
+            NSAttributedString.Key.font : AppFonts(family: .Bold, uiFontStyle: .title1).uiFont
         ])
         
         return CGSize(width: itemSize.width * 2, height: 30)

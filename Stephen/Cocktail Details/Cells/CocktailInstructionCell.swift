@@ -34,7 +34,8 @@ class CocktailInstructionCell : UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.textColor = AppColors.TextColor
-        label.font = AppFont.Regular(25).uiFont
+        AppFonts(family: .Regular).configure(label)
+        
         return label
     }()
     
@@ -44,7 +45,8 @@ class CocktailInstructionCell : UITableViewCell {
         label.numberOfLines = 0
         label.textColor = AppColors.TextColor
         label.textAlignment = .center
-        label.font = AppFont.Bold(17).uiFont
+        AppFonts(family: .Regular).configure(label)
+        
         return label
     }()
     

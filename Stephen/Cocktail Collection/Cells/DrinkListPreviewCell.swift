@@ -39,7 +39,9 @@ class DrinkListPreviewCell : UICollectionViewCell {
         
         if cocktailNameLabel == nil {
             cocktailNameLabel = UILabel()
-            cocktailNameLabel.font = AppFont.Bold(23).uiFont
+            
+            
+//            cocktailNameLabel.font = AppFont.Bold(23).uiFont
             cocktailNameLabel.translatesAutoresizingMaskIntoConstraints = false
             cocktailNameLabel.textColor = .white
             cocktailNameLabel.numberOfLines = 0

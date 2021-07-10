@@ -8,28 +8,102 @@
 import UIKit
 import SwiftUI
 
-enum AppFont {
-    case Regular(Int), Bold(Int), Italic(Int)
+struct AppFonts {
+    
+    
+    private let kRegularFont = "LouisGeorgeCafe"
+    private let kBoldFont = "LouisGeorgeCafe-Bold"
+    private let kItalicFont = "LouisGeorgeCafe-Italic"
+    
+    enum FontFamily {
+        case Regular, Bold, Italic
+    }
+    
+    private var family : FontFamily!
+    private var size : CGFloat = 17
+    
+    private var uiFontStyle : UIFont.TextStyle!
+    private var swiftUIFontStyle : Font.TextStyle!
+    
+    init(family: FontFamily,
+         uiFontStyle: UIFont.TextStyle = .body,
+         swiftUIFontStyle : Font.TextStyle = .body) {
+        
+        self.size = 17.0
+        self.family = family
+        self.uiFontStyle = uiFontStyle
+        self.swiftUIFontStyle = swiftUIFontStyle
+    }
+    
+    init(size: Int, family: FontFamily) {
+        self.init(family: family, uiFontStyle: .body, swiftUIFontStyle: .body)
+        self.size = CGFloat(size)
+    }
     
     var uiFont : UIFont {
         get {
-            switch self {
+            switch family {
             
-            case .Regular(let size): return UIFont(name: "LouisGeorgeCafe", size: CGFloat(size))!
-            case .Bold(let size): return UIFont(name: "LouisGeorgeCafe-Bold", size: CGFloat(size))!
-            case .Italic(let size): return UIFont(name: "LouisGeorgeCafe-Italic", size: CGFloat(size))!
+            case .Regular:
+                
+                return UIFontMetrics(forTextStyle: uiFontStyle)
+                    .scaledFont(for: UIFont(name: kRegularFont, size: CGFloat(size))!)
+                
+            case .Bold:
+                
+                return UIFontMetrics(forTextStyle: uiFontStyle)
+                    .scaledFont(for: UIFont(name: kBoldFont, size: CGFloat(size))!)
+                
+            case .Italic:
+                return UIFontMetrics(forTextStyle: uiFontStyle)
+                    .scaledFont(for: UIFont(name: kItalicFont, size: CGFloat(size))!)
+                
+            case .none:
+                fatalError()
             }
         }
     }
     
+    func configure(_ label: UILabel) {
+        label.font = uiFont
+        label.adjustsFontForContentSizeCategory = true
+    }
+    
+    
+    
     var swiftUiFont : Font {
         get {
-            switch self {
+            switch family {
             
-            case .Regular(let size): return Font.custom("LouisGeorgeCafe", size: CGFloat(size))
-            case .Bold(let size): return Font.custom("LouisGeorgeCafe-Bold", size: CGFloat(size))
-            case .Italic(let size): return Font.custom("LouisGeorgeCafe-Italic", size: CGFloat(size))
+            case .Regular:
+                
+                return Font.custom(kRegularFont,
+                            size: CGFloat(size),
+                            relativeTo: swiftUIFontStyle)
+                
+            case .Bold:
+                
+                return Font.custom(kBoldFont,
+                            size: CGFloat(size),
+                            relativeTo: swiftUIFontStyle)
+                
+            case .Italic:
+                
+                return Font.custom(kItalicFont,
+                            size: CGFloat(size),
+                            relativeTo: swiftUIFontStyle)
+                
+            case .none:
+                fatalError()
+                
             }
         }
+    }
+    
+}
+
+extension Text {
+    func configure(_ font: AppFonts) -> Text {
+        return self.font(font.swiftUiFont)
     }
 }

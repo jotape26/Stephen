@@ -62,7 +62,7 @@ class DrinkListViewController: BaseViewController {
         
         let navigationTitleLabel = UILabel()
         navigationTitleLabel.textColor = .white
-        navigationTitleLabel.font = AppFont.Bold(30).uiFont
+        navigationTitleLabel.font = AppFonts(size: 30, family: .Bold).uiFont
         navigationTitleLabel.text = "Stephen"
         
         navigationItem.titleView = navigationTitleLabel

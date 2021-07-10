@@ -41,11 +41,11 @@ class FavoriteCocktailBusiness : NSObject, FavoriteCocktailManager {
     
     private let kFavoriteDrinksKey = "FavoriteDrinksIDArray"
     
-    private var favoriteDrinks : [CocktailLite] {
+    private var favoriteDrinks : [CocktailModel] {
         get {
             
             if let data = userDefaults.value(forKey: kFavoriteDrinksKey) as? Data,
-               let cocktails = try? PropertyListDecoder().decode([CocktailLite].self, from: data) {
+               let cocktails = try? PropertyListDecoder().decode([CocktailModel].self, from: data) {
                 return cocktails
             }
             
@@ -58,7 +58,11 @@ class FavoriteCocktailBusiness : NSObject, FavoriteCocktailManager {
     
     func saveNewCocktail(_ cocktail: Cocktail) {
         guard !favoriteDrinks.contains(where: { $0.id == cocktail.id }) else { return }
-        favoriteDrinks.append(cocktail.mapToLite())
+        
+        if let model = cocktail as? CocktailModel {
+            favoriteDrinks.append(model)
+        }
+        
         syncWithViewModel()
     }
     
@@ -70,7 +74,7 @@ class FavoriteCocktailBusiness : NSObject, FavoriteCocktailManager {
     }
     
     func syncWithViewModel() {
-        viewModelReference?.configureNewCocktails(favoriteDrinks.map({ $0.mapToModel() }))
+        viewModelReference?.configureNewCocktails(favoriteDrinks.map({ $0 }))
     }
     
     func isFavoriteCocktail(id: String) -> Bool {

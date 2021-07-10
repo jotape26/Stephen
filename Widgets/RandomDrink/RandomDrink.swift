@@ -11,25 +11,25 @@ import Intents
 import Kingfisher
 
 struct DefaultDrinks {
-    static var Margarita = CocktailLite(id: "11007",
-                                        name: "Margarita",
-                                        thumbURL: nil)
+    static var Margarita = CocktailModel(id: "11007",
+                                         name: "Margarita",
+                                         thumbURL: nil)
 }
 struct Provider: TimelineProvider {
     
     func placeholder(in context: Context) -> SimpleEntry {
         SimpleEntry(cocktail: DefaultDrinks.Margarita)
     }
-
+    
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
         let entry = SimpleEntry(cocktail: DefaultDrinks.Margarita)
         completion(entry)
     }
-
+    
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         
         var entries: [SimpleEntry] = []
-
+        
         let business = CocktailBusiness()
         let imageRequestGroup = DispatchGroup()
         business.fetchMainCocktails { result in
@@ -37,7 +37,7 @@ struct Provider: TimelineProvider {
             
             if let randomElement = result.cocktails.randomElement() {
                 self.downloadImage(url: randomElement.thumbnailURL!) { newImage in
-                    entries.append(SimpleEntry(cocktail: randomElement.mapToLite(), image: newImage))
+                    entries.append(SimpleEntry(cocktail: randomElement, image: newImage))
                     
                     imageRequestGroup.leave()
                 }
@@ -53,7 +53,7 @@ struct Provider: TimelineProvider {
             }
             
         }
-
+        
         
     }
     
@@ -74,7 +74,7 @@ struct Provider: TimelineProvider {
 }
 
 struct SimpleEntry: TimelineEntry {
-    let cocktail: CocktailLite
+    let cocktail: Cocktail
     var image : UIImage?
     let date: Date = Date()
 }
@@ -88,22 +88,22 @@ struct RandomDrinkEntryView : View {
             
             VStack(alignment: .leading) {
                 
-                Text("Check out:\n\(entry.cocktail.name)")
+                Text(entry.cocktail.name)
+                    .configure(AppFonts(family: .Regular, swiftUIFontStyle: .body))
                     .foregroundColor(.white)
                     .lineLimit(50)
-                    .font(AppFont.Regular(15).swiftUiFont)
                 
                 if let img = entry.image {
                     Image(uiImage: img)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        .frame(maxHeight: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                         .cornerRadius(10.0)
                 } else {
                     Image("margarita-preview")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        .frame(maxHeight: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                         .cornerRadius(10.0)
                 }
             }.padding(.all, 10.0)
@@ -114,7 +114,7 @@ struct RandomDrinkEntryView : View {
 @main
 struct RandomDrink: Widget {
     let kind: String = "RandomDrink"
-
+    
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             RandomDrinkEntryView(entry: entry)

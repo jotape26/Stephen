@@ -14,7 +14,8 @@ class CocktailListSectionHeaderCell : UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = AppColors.TextColor
         label.numberOfLines = 0
-        label.font = AppFont.Bold(35).uiFont
+        
+        AppFonts(family: .Bold, uiFontStyle: .title1).configure(label)
         
         return label
     }()
