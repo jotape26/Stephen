@@ -32,7 +32,7 @@ struct Provider: TimelineProvider {
         
         let business = CocktailBusiness()
         let imageRequestGroup = DispatchGroup()
-        business.fetchMainCocktails { result in
+        business.fetchRandomCocktail { result in
             imageRequestGroup.enter()
             
             if let randomElement = result.cocktails.randomElement() {
@@ -106,8 +106,24 @@ struct RandomDrinkEntryView : View {
                         .frame(maxHeight: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                         .cornerRadius(10.0)
                 }
+                
+                
             }.padding(.all, 10.0)
-        }
+            
+            
+        }.widgetURL({ () -> URL? in
+            var urlComponents = URLComponents()
+            urlComponents.scheme = "stephenDrinks"
+            urlComponents.host = "openWidget"
+            urlComponents.queryItems = [URLQueryItem(name: "id", value: "\(entry.cocktail.id)"),
+                                        URLQueryItem(name: "name", value: "\(entry.cocktail.name)")]
+
+            if let url = entry.cocktail.thumbnailURL {
+                urlComponents.queryItems?.append(URLQueryItem(name: "thumbnailURL", value: "\(url)"))
+            }
+            
+            return urlComponents.url
+        }())
     }
 }
 

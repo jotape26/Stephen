@@ -12,22 +12,35 @@ typealias IngredientResult = (ingredients: [Ingredient], error: NetworkError?)
 typealias CocktailResult = (cocktails: [Cocktail], error: NetworkError?)
 
 protocol CocktailBusinessProtocol {
-    func searchCocktail(byName name: String)
+    func searchCocktail(byName name: String, callback: @escaping (CocktailResult) -> ())
     func searchCocktail(byIngredient ingredient: Ingredient)
 
     func fetchCocktailDetails(_ cocktail: Cocktail, callback: @escaping (NetworkError?) -> ())
     func fetchCocktail(byID id: String, callback: @escaping (NetworkError?) -> ())
     func fetchMainCocktails(callback: @escaping (CocktailResult) -> ())
-    func fetchRandomCocktail()
+    func fetchRandomCocktail(callback: @escaping (CocktailResult) -> ())
 }
 
 class CocktailBusiness : CocktailBusinessProtocol {
     
     internal var provider : MoyaProvider<CocktailService> = MoyaProvider()
 
-    func searchCocktail(byName name: String) {
+    func searchCocktail(byName name: String, callback: @escaping (CocktailResult) -> ()) {
         provider.request(.searchCocktailByName(name)) { result in
-            
+            do {
+                
+                let cocktailDrinks = try self.drinksResponseParser(result)
+                callback((cocktailDrinks, nil))
+                
+            } catch let error {
+                
+                if let error = error as? NetworkError {
+                    callback(([], error))
+                } else {
+                    callback(([], NetworkError.RequestError(error.localizedDescription)))
+                }
+                
+            }
         }
     }
     
@@ -43,9 +56,15 @@ class CocktailBusiness : CocktailBusinessProtocol {
         provider.request(.fetchCocktailByID(cocktail.id)) { result in
             
             do {
-                let responseJSON = try self.drinksResponseParser(result)
                 
-                if let drinkArray = responseJSON["drinks"] as? [[String : Any]], let drinkInfo = drinkArray.first {
+                let result = try result.get()
+                let serializedResult = try JSONSerialization.jsonObject(with: result.data, options: .mutableContainers)
+                
+                guard let dictionary = serializedResult as? [String : Any] else {
+                    throw NetworkError.WrongFormat
+                }
+
+                if let drinkArray = dictionary["drinks"] as? [[String : Any]], let drinkInfo = drinkArray.first {
                     
                     cocktail.registerDetails(data: drinkInfo)
                     callback(nil)
@@ -70,39 +89,55 @@ class CocktailBusiness : CocktailBusinessProtocol {
             
             
             do {
-                let responseJSON = try self.drinksResponseParser(result)
-            
-                if let drinkArray = responseJSON["drinks"] as? [[String : Any]] {
-
-                    callback((drinkArray.compactMap({ CocktailModel.createFromJSON(JSON: $0) }), nil))
-                    
-                } else {
-                    throw NetworkError.WrongFormat
-                }
                 
-                
+                let cocktailDrinks = try self.drinksResponseParser(result)
+                callback((cocktailDrinks, nil))
                 
             } catch let error {
-                callback(([], NetworkError.RequestError(error.localizedDescription)))
+                
+                if let error = error as? NetworkError {
+                    callback(([], error))
+                } else {
+                    callback(([], NetworkError.RequestError(error.localizedDescription)))
+                }
+                
             }
         }
     }
     
-    func fetchRandomCocktail() {
+    func fetchRandomCocktail(callback: @escaping (CocktailResult) -> ()) {
         provider.request(.fetchRandomCocktail) { result in
-            
+            do {
+                
+                if let randomCocktail = try self.drinksResponseParser(result).first {
+                    callback(([randomCocktail], nil))
+                } else {
+                    throw NetworkError.WrongFormat
+                }
+
+            } catch let error {
+                
+                if let error = error as? NetworkError {
+                    callback(([], error))
+                } else {
+                    callback(([], NetworkError.RequestError(error.localizedDescription)))
+                }
+                
+            }
         }
     }
     
-    private func drinksResponseParser(_ response: Result<Response, MoyaError>) throws -> [String : Any] {
+    private func drinksResponseParser(_ response: Result<Response, MoyaError>) throws -> [Cocktail] {
         let result = try response.get()
         let serializedResult = try JSONSerialization.jsonObject(with: result.data, options: .mutableContainers)
         
         guard let dictionary = serializedResult as? [String : Any] else {
             throw NetworkError.WrongFormat
         }
+
+        let drinkArray = dictionary["drinks"] as? [[String : Any]] ?? []
         
-        return dictionary
+        return drinkArray.compactMap({ CocktailModel.createFromJSON(JSON: $0) })
     }
     
 }

@@ -8,12 +8,28 @@
 import Foundation
 import RxCocoa
 
+
+struct CocktailCollectionData: Equatable {
+    
+    var isSearching : Bool
+    var sections    : [CollectionSections]
+    var items       : [Cocktail]
+    
+    static func == (lhs: CocktailCollectionData, rhs: CocktailCollectionData) -> Bool {
+        return lhs.sections.count == rhs.sections.count && lhs.items.count == lhs.items.count
+    }
+}
+
 class MainListViewModel : NSObject, DrinksListViewModelProtocol {
     
+    private var suggestionsList    : BehaviorRelay<[Cocktail]> = BehaviorRelay(value: [])
     private var cocktailList       : BehaviorRelay<[Cocktail]> = BehaviorRelay(value: [])
+    
     private var requestRelay       : BehaviorRelay<Bool> = BehaviorRelay(value: false)
     
     private var navigationDelegate : CocktailNavigationDelegate!
+    
+    var searchTextRelay : BehaviorRelay<String?> = BehaviorRelay(value: nil)
     
     init(navigationDelegate: CocktailNavigationDelegate) {
         self.navigationDelegate = navigationDelegate
@@ -35,8 +51,36 @@ class MainListViewModel : NSObject, DrinksListViewModelProtocol {
         }
     }
     
+    var listCollectionData : Driver<CocktailCollectionData> {
+        get {
+            Driver.combineLatest(suggestionsList.asDriver(),
+                                 cocktailList.asDriver(),
+                                 requestRelay.asDriver(),
+                                 searchTextRelay.asDriver()) { suggestions, cocktails, requestStatus, searchStatus in
+                
+                if let searchTerm = searchStatus, !searchTerm.isEmpty {
+                    return CocktailCollectionData(isSearching: true,
+                                                  sections: [.List],
+                                                  items: cocktails)
+                }
+                
+                return CocktailCollectionData(isSearching: false,
+                                              sections: [.Title("My Favorite Cocktails"),
+                                                         .Favorite,
+                                                         .Title("New Suggestions"),
+                                                         suggestions.isEmpty ? .RequestList : .List],
+                                              items: suggestions)
+                
+            }
+        }
+    }
+    
     func configureNewCocktails(_ newList: [Cocktail]) {
         cocktailList.accept(newList)
+        
+        if suggestionsList.value.isEmpty {
+            suggestionsList.accept(newList)
+        }
     }
     
     func getCocktail(atIndex ind: Int) -> Cocktail? {

@@ -31,8 +31,8 @@ class DrinkDetailViewController: BaseViewController {
         cocktailNameLabel.translatesAutoresizingMaskIntoConstraints = false
         cocktailNameLabel.textColor = .white
         cocktailNameLabel.numberOfLines = 0
-        
-        AppFonts(family: .Bold, uiFontStyle: .callout).configure(cocktailNameLabel)
+
+        cocktailNameLabel.font = AppFonts(size: 25, family: .Bold).uiFont
         
         return cocktailNameLabel
     }()
@@ -96,6 +96,7 @@ class DrinkDetailViewController: BaseViewController {
         table.allowsSelection = false
         table.register(CocktailInstructionCell.self, forCellReuseIdentifier: "InstructionCell")
         table.contentInset = UIEdgeInsets(top: 300, left: 0, bottom: 0, right: 0)
+        table.showsVerticalScrollIndicator = false
         return table
     }()
     
@@ -150,6 +151,15 @@ class DrinkDetailViewController: BaseViewController {
         navigationItem.hidesBackButton = true
         navigationItem.leftBarButtonItem = backItem
         
+        let navigationBarAppearence = UINavigationBarAppearance()
+        navigationBarAppearence.shadowColor = .clear
+        navigationBarAppearence.backgroundColor = AppColors.WineRed.uiColor
+        
+        navigationController?.navigationBar.barTintColor = AppColors.WineRed.uiColor
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        
         favoriteImageView.frame = backImageView.frame
         let favoriteButton = UIBarButtonItem(customView: favoriteImageView)
         navigationItem.rightBarButtonItem = favoriteButton
@@ -159,7 +169,7 @@ class DrinkDetailViewController: BaseViewController {
         
         NSLayoutConstraint.activate([
             informationTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            informationTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            informationTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10.0),
             informationTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             informationTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         ])
@@ -274,13 +284,13 @@ extension DrinkDetailViewController: UITableViewDelegate, UITableViewDataSource 
             
             if let textLabel = cell.textLabel {
                 textLabel.text = ingredient.name
-                textLabel.textColor = .white
+                textLabel.textColor = AppColors.TextColor
                 AppFonts(family: .Bold, uiFontStyle: .callout).configure(textLabel)
             }
             
             if let textLabel = cell.detailTextLabel {
                 textLabel.text = ingredient.quantity
-                textLabel.textColor = .white
+                textLabel.textColor = AppColors.TextColor
                 AppFonts(family: .Regular, uiFontStyle: .body).configure(textLabel)
             }
             

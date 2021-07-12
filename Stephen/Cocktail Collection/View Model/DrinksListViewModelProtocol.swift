@@ -14,6 +14,9 @@ protocol DrinksListViewModelProtocol: NSObject {
     var cocktailListDriver : Driver<[Cocktail]> { get }
     var drinksCount : Int { get }
     
+    var listCollectionData : Driver<CocktailCollectionData> { get }
+    var searchTextRelay : BehaviorRelay<String?> { get }
+    
     func configureNewCocktails(_ newList : [Cocktail])
     func isMakingRequest(_ isMaking: Bool)
     
